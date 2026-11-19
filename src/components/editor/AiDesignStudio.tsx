@@ -278,71 +278,72 @@ export function AiDesignStudio({
     Boolean(effectiveSpec);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {/* Studio Header */}
-      <div className="p-3.5 bg-studio-panel border border-studio-border rounded-lg shadow-xs">
+      <div className="pb-4 border-b border-studio-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-studio-action" />
-            <h3 className="font-serif font-bold text-[14px] text-studio-ink-primary">
+            <Sparkles className="w-4 h-4 text-amber-600" />
+            <h3 className="font-serif font-bold text-[16px] text-studio-ink-primary">
               AI Design Studio
             </h3>
           </div>
 
-          <div className="flex items-center gap-1.5 text-[10px] font-mono">
+          <div className="flex items-center gap-1.5 text-[11px] font-mono">
             <span
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border ${
+              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border ${
                 apiStatus?.geminiConfigured
-                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                  : 'bg-amber-50 text-amber-800 border-amber-200'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300 font-medium'
+                  : 'bg-amber-50 text-amber-800 border-amber-300 font-medium'
               }`}
             >
+              <span className={`w-1.5 h-1.5 rounded-full ${apiStatus?.geminiConfigured ? 'bg-emerald-600' : 'bg-amber-600'}`} />
               Gemini AI: {apiStatus?.geminiConfigured ? 'Ready (Free Tier)' : 'Key Missing'}
             </span>
           </div>
         </div>
 
-        <p className="text-[11.5px] text-studio-ink-secondary mt-1 leading-snug">
-          Genuinely AI-powered design generator using Google Gemini design intelligence and a local SVG/CSS vector engine. 100% free with zero image credit costs.
+        <p className="text-[12.5px] text-studio-ink-secondary mt-1.5 leading-relaxed">
+          Autonomous credential intelligence powered by Google Gemini and a local SVG/CSS vector rendering engine.
         </p>
       </div>
 
       {/* API Key Setup Banner if Unset */}
       {!apiStatus?.geminiConfigured && (
-        <div className="p-3 bg-amber-50/90 border border-amber-200 rounded-lg text-amber-900 text-[11px] space-y-1.5 shadow-xs">
-          <div className="flex items-center gap-1.5 font-semibold text-[11.5px]">
-            <KeyRound className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+        <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-950 text-[12px] space-y-2 shadow-xs">
+          <div className="flex items-center gap-2 font-semibold text-[12.5px]">
+            <KeyRound className="w-4 h-4 text-amber-700 shrink-0" />
             <span>Google Gemini Free API Key Required for Live AI Generation</span>
           </div>
-          <p className="text-amber-800 leading-relaxed">
+          <p className="text-amber-900 leading-relaxed">
             Obtain a free API key from{' '}
             <a
               href="https://aistudio.google.com/"
               target="_blank"
               rel="noreferrer"
-              className="underline font-semibold text-amber-900"
+              className="underline font-semibold text-amber-950"
             >
               Google AI Studio
             </a>{' '}
-            and paste it into <code className="bg-amber-100 px-1 py-0.5 rounded font-mono">.env.local</code>:
+            and paste it into <code className="bg-amber-100 px-1 py-0.5 rounded font-mono text-[11px]">.env.local</code>:
           </p>
-          <pre className="bg-amber-100/80 p-2 rounded text-[10.5px] font-mono text-amber-950 overflow-x-auto">
+          <pre className="bg-amber-100/90 p-2.5 rounded text-[11px] font-mono text-amber-950 overflow-x-auto">
 GEMINI_API_KEY=your_gemini_api_key_here
           </pre>
-          <p className="text-amber-700 text-[10.5px]">
+          <p className="text-amber-800 text-[11px]">
             You can test the entire SVG/CSS layout engine immediately using the <strong>Load Offline Sample</strong> button below.
           </p>
         </div>
       )}
 
       {/* Main Studio Controls */}
-      <div className="p-4 bg-studio-panel border border-studio-border rounded-lg space-y-4 shadow-xs">
+      <div className="space-y-4">
         {/* Style Archetype Selector */}
         <div>
-          <label className="block text-[11px] font-mono uppercase tracking-wider text-studio-ink-secondary mb-2">
-            1. Aesthetic Archetype
+          <label className="block text-[11.5px] font-mono uppercase tracking-wider text-studio-ink-secondary mb-2">
+            Aesthetic Archetype
           </label>
-          <div className="grid grid-cols-2 gap-1.5">
+          <div className="grid grid-cols-2 gap-2">
             {STYLE_ARCHETYPES.map((arch) => {
               const active = selectedStyle === arch.id;
               return (
@@ -351,22 +352,22 @@ GEMINI_API_KEY=your_gemini_api_key_here
                   type="button"
                   onClick={() => setSelectedStyle(arch.id)}
                   disabled={isGenerating}
-                  className={`p-2 rounded text-left border transition-all ${
+                  className={`p-2.5 rounded-lg text-left border transition-all focus-ring ${
                     active
-                      ? 'border-studio-action bg-studio-action-tint/30 ring-1 ring-studio-action/40'
-                      : 'border-studio-border bg-studio-canvas hover:bg-studio-subtle'
+                      ? 'border-studio-action bg-studio-subtle/80 ring-1 ring-studio-action'
+                      : 'border-studio-border bg-studio-panel hover:bg-studio-subtle/50'
                   }`}
                 >
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <span
-                      className="w-2.5 h-2.5 rounded-full shrink-0"
+                      className="w-2.5 h-2.5 rounded-full shrink-0 shadow-xs"
                       style={{ backgroundColor: arch.accent }}
                     />
-                    <span className="font-sans font-semibold text-[11.5px] text-studio-ink-primary truncate">
+                    <span className="font-sans font-semibold text-[12px] text-studio-ink-primary truncate">
                       {arch.label}
                     </span>
                   </div>
-                  <span className="text-[10px] text-studio-ink-muted leading-tight block mt-0.5 line-clamp-1">
+                  <span className="text-[11px] text-studio-ink-muted leading-tight block mt-1 line-clamp-1">
                     {arch.description}
                   </span>
                 </button>
@@ -377,18 +378,18 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
         {/* Orientation Switcher */}
         <div>
-          <label className="block text-[11px] font-mono uppercase tracking-wider text-studio-ink-secondary mb-1.5">
-            2. Card Orientation
+          <label className="block text-[11.5px] font-mono uppercase tracking-wider text-studio-ink-secondary mb-1.5">
+            Card Orientation
           </label>
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => handleOrientationChange('portrait')}
               disabled={isGenerating}
-              className={`py-1.5 px-3 rounded text-[11.5px] font-medium border flex items-center justify-center gap-1.5 transition-colors ${
+              className={`py-2 px-3 rounded-md text-[12px] font-medium border flex items-center justify-center gap-2 transition-colors focus-ring ${
                 selectedOrientation === 'portrait'
-                  ? 'border-studio-action bg-studio-action-tint text-studio-action font-semibold'
-                  : 'border-studio-border bg-studio-canvas text-studio-ink-secondary hover:text-studio-ink-primary'
+                  ? 'border-studio-action bg-studio-subtle text-studio-action font-semibold'
+                  : 'border-studio-border bg-studio-panel text-studio-ink-secondary hover:text-studio-ink-primary'
               }`}
             >
               <Compass className="w-3.5 h-3.5" />
@@ -398,10 +399,10 @@ GEMINI_API_KEY=your_gemini_api_key_here
               type="button"
               onClick={() => handleOrientationChange('landscape')}
               disabled={isGenerating}
-              className={`py-1.5 px-3 rounded text-[11.5px] font-medium border flex items-center justify-center gap-1.5 transition-colors ${
+              className={`py-2 px-3 rounded-md text-[12px] font-medium border flex items-center justify-center gap-2 transition-colors focus-ring ${
                 selectedOrientation === 'landscape'
-                  ? 'border-studio-action bg-studio-action-tint text-studio-action font-semibold'
-                  : 'border-studio-border bg-studio-canvas text-studio-ink-secondary hover:text-studio-ink-primary'
+                  ? 'border-studio-action bg-studio-subtle text-studio-action font-semibold'
+                  : 'border-studio-border bg-studio-panel text-studio-ink-secondary hover:text-studio-ink-primary'
               }`}
             >
               <Compass className="w-3.5 h-3.5 rotate-90" />
@@ -413,10 +414,10 @@ GEMINI_API_KEY=your_gemini_api_key_here
         {/* Natural Language Prompt Input */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="text-[11px] font-mono uppercase tracking-wider text-studio-ink-secondary">
-              3. Natural-Language Design Prompt
+            <label className="text-[11.5px] font-mono uppercase tracking-wider text-studio-ink-secondary">
+              Natural-Language Design Prompt
             </label>
-            <span className="text-[10px] font-mono text-studio-ink-muted">
+            <span className="text-[11px] font-mono text-studio-ink-muted tabular-nums">
               {prompt.length}/500 chars
             </span>
           </div>
@@ -427,13 +428,13 @@ GEMINI_API_KEY=your_gemini_api_key_here
             placeholder="e.g. Design a prestigious engineering college ID card with a deep navy blue theme, gold guilloche borders, and a modern two-column layout."
             rows={3}
             disabled={isGenerating}
-            className="w-full p-3 bg-studio-canvas border border-studio-border rounded-md text-[13px] text-studio-ink-primary placeholder:text-studio-ink-muted focus:outline-none focus:border-studio-action resize-none"
+            className="w-full p-3 bg-studio-panel border border-studio-border rounded-md text-[13px] text-studio-ink-primary placeholder:text-studio-ink-muted focus-ring resize-none"
           />
         </div>
 
         {/* Quick Inspiration Starters */}
         <div>
-          <span className="block text-[10px] font-mono uppercase tracking-wider text-studio-ink-muted mb-1.5">
+          <span className="block text-[11px] font-mono uppercase tracking-wider text-studio-ink-muted mb-1.5">
             Inspiration Starters:
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -445,7 +446,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
                   setPrompt(suggestion);
                 }}
                 disabled={isGenerating}
-                className="text-[10.5px] px-2 py-0.5 bg-studio-canvas hover:bg-studio-subtle border border-studio-border rounded text-studio-ink-secondary hover:text-studio-ink-primary text-left transition-colors truncate max-w-full"
+                className="text-[11px] px-2.5 py-1 bg-studio-subtle hover:bg-studio-border/70 border border-studio-border rounded-md text-studio-ink-secondary hover:text-studio-ink-primary text-left transition-colors truncate max-w-full focus-ring"
               >
                 {suggestion.slice(0, 48)}...
               </button>
@@ -454,13 +455,13 @@ GEMINI_API_KEY=your_gemini_api_key_here
         </div>
 
         {/* Action Buttons */}
-        <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 border-t border-studio-border/70">
+        <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 border-t border-studio-border">
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => handleGenerateWithGemini()}
               disabled={isGenerating || prompt.trim().length < 3}
-              className="px-4 py-2 bg-studio-action hover:bg-studio-action-hover text-white rounded-md text-[12.5px] font-medium flex items-center justify-center gap-2 shadow-xs transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-studio-action hover:bg-studio-action-hover text-white rounded-md text-[13px] font-semibold flex items-center justify-center gap-2 shadow-xs transition-all disabled:opacity-50 focus-ring active:scale-[0.98]"
             >
               {isGenerating ? (
                 <>
@@ -469,7 +470,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4" />
+                  <Sparkles className="w-4 h-4 text-amber-400" />
                   <span>Generate Design with AI</span>
                 </>
               )}
@@ -479,7 +480,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
               type="button"
               onClick={handleLoadOfflineSample}
               disabled={isGenerating}
-              className="px-3 py-2 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-secondary hover:text-studio-ink-primary rounded-md text-[11.5px] font-medium flex items-center justify-center gap-1.5 transition-colors"
+              className="px-3 py-2 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-ink-secondary hover:text-studio-ink-primary rounded-md text-[12px] font-medium flex items-center justify-center gap-1.5 transition-colors focus-ring"
               title="Loads an offline sample preset rendered via mathematical SVG and CSS"
             >
               <FileCode className="w-3.5 h-3.5" />
@@ -491,7 +492,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
             <button
               type="button"
               onClick={onClearAiDesign}
-              className="text-[11px] font-mono text-studio-ink-secondary hover:text-studio-destructive flex items-center justify-center gap-1 transition-colors py-1"
+              className="text-[12px] font-mono text-studio-ink-secondary hover:text-studio-destructive flex items-center justify-center gap-1.5 transition-colors py-1 focus-ring"
             >
               <Undo2 className="w-3.5 h-3.5" />
               Reset to Standard Template
@@ -502,13 +503,13 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
       {/* Progress Feedback */}
       {isGenerating && (
-        <div className="p-4 bg-studio-subtle/80 border border-studio-border rounded-lg flex items-center gap-3">
+        <div className="p-4 bg-studio-subtle border border-studio-border rounded-lg flex items-center gap-3">
           <Loader2 className="w-5 h-5 text-studio-action animate-spin shrink-0" />
           <div>
-            <span className="font-sans font-semibold text-[12px] text-studio-ink-primary block">
+            <span className="font-sans font-semibold text-[13px] text-studio-ink-primary block">
               AI Generation in Progress
             </span>
-            <span className="font-mono text-[11px] text-studio-ink-secondary">
+            <span className="font-mono text-[11.5px] text-studio-ink-secondary">
               {loadingStep}
             </span>
           </div>
@@ -519,7 +520,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
       {error && (
         <div className="p-3.5 bg-studio-destructive-tint border border-studio-destructive/30 rounded-lg flex items-start gap-2.5 text-studio-destructive">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-          <div className="text-[11.5px] leading-snug">
+          <div className="text-[12px] leading-snug">
             <strong className="block font-semibold">Gemini API Error:</strong>
             {error}
           </div>
@@ -528,7 +529,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
       {/* Status Notice */}
       {statusNotice && (
-        <div className="p-3 bg-studio-success-tint/60 border border-studio-success/30 rounded-lg flex items-start gap-2.5 text-studio-success text-[11px] leading-snug">
+        <div className="p-3.5 bg-studio-success-tint border border-studio-success/30 rounded-lg flex items-start gap-2.5 text-studio-success text-[12px] leading-snug">
           <Check className="w-4 h-4 shrink-0 mt-0.5" />
           <div>
             <strong>Success:</strong> {statusNotice}
@@ -538,35 +539,35 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
       {/* Generated Design Inspector, Live Preview & Fine-Tuning */}
       {effectiveSpec && (
-        <div className="p-4 bg-studio-panel border border-studio-border rounded-lg space-y-4 shadow-xs">
-          <div className="flex items-center justify-between border-b border-studio-border/70 pb-2">
+        <div className="p-4 sm:p-5 bg-studio-canvas border border-studio-border rounded-lg space-y-4 shadow-xs">
+          <div className="flex items-center justify-between border-b border-studio-border pb-3">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-studio-ink-muted block">
-                AI Generated Specification
+              <span className="text-[11px] font-mono uppercase tracking-wider text-studio-ink-muted block">
+                Generated Specification
               </span>
-              <h4 className="font-serif font-bold text-[14px] text-studio-ink-primary">
+              <h4 className="font-serif font-bold text-[15px] text-studio-ink-primary">
                 {effectiveSpec.theme}
               </h4>
             </div>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span
-                className="w-4 h-4 rounded-full border border-black/10 shadow-xs"
+                className="w-4 h-4 rounded-full border border-black/15 shadow-xs"
                 style={{ backgroundColor: editablePrimary || effectiveSpec.palette.primaryColor }}
                 title={`Primary: ${editablePrimary || effectiveSpec.palette.primaryColor}`}
               />
               <span
-                className="w-4 h-4 rounded-full border border-black/10 shadow-xs"
+                className="w-4 h-4 rounded-full border border-black/15 shadow-xs"
                 style={{ backgroundColor: editableSecondary || effectiveSpec.palette.secondaryColor }}
                 title={`Secondary: ${editableSecondary || effectiveSpec.palette.secondaryColor}`}
               />
               <span
-                className="w-4 h-4 rounded-full border border-black/10 shadow-xs"
+                className="w-4 h-4 rounded-full border border-black/15 shadow-xs"
                 style={{ backgroundColor: editableAccent || effectiveSpec.palette.accentColor }}
                 title={`Accent: ${editableAccent || effectiveSpec.palette.accentColor}`}
               />
               <span
-                className="w-4 h-4 rounded-full border border-black/10 shadow-xs"
+                className="w-4 h-4 rounded-full border border-black/15 shadow-xs"
                 style={{ backgroundColor: editableStock || effectiveSpec.palette.cardStockTint }}
                 title={`Stock: ${editableStock || effectiveSpec.palette.cardStockTint}`}
               />
@@ -574,20 +575,20 @@ GEMINI_API_KEY=your_gemini_api_key_here
           </div>
 
           {/* Interactive Mini Preview with actual Student Data */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-[11px] font-mono">
-              <span className="text-studio-ink-secondary flex items-center gap-1">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-[11.5px] font-mono">
+              <span className="text-studio-ink-secondary flex items-center gap-1.5">
                 <Eye className="w-3.5 h-3.5 text-studio-action" />
                 <span>Live Studio Preview</span>
               </span>
-              <div className="flex border border-studio-border rounded overflow-hidden">
+              <div className="flex border border-studio-border rounded-md overflow-hidden bg-studio-panel p-0.5">
                 <button
                   type="button"
                   onClick={() => setPreviewSide('front')}
-                  className={`px-2 py-0.5 text-[10px] ${
+                  className={`px-2.5 py-0.5 text-[11px] rounded font-medium ${
                     previewSide === 'front'
                       ? 'bg-studio-action text-white font-semibold'
-                      : 'bg-studio-canvas text-studio-ink-secondary hover:text-studio-ink-primary'
+                      : 'text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                 >
                   Front
@@ -595,10 +596,10 @@ GEMINI_API_KEY=your_gemini_api_key_here
                 <button
                   type="button"
                   onClick={() => setPreviewSide('back')}
-                  className={`px-2 py-0.5 text-[10px] ${
+                  className={`px-2.5 py-0.5 text-[11px] rounded font-medium ${
                     previewSide === 'back'
                       ? 'bg-studio-action text-white font-semibold'
-                      : 'bg-studio-canvas text-studio-ink-secondary hover:text-studio-ink-primary'
+                      : 'text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                 >
                   Back
@@ -606,7 +607,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
               </div>
             </div>
 
-            <div className="p-3 bg-studio-canvas rounded-lg border border-studio-border flex items-center justify-center overflow-hidden min-h-[260px]">
+            <div className="p-4 bg-studio-panel rounded-lg border border-studio-border flex items-center justify-center overflow-hidden min-h-[260px]">
               <div className="transform scale-[0.55] sm:scale-[0.62] origin-center shadow-card-elevated rounded-[19px] overflow-hidden">
                 <AiDynamicCardRenderer
                   spec={effectiveSpec}
@@ -620,79 +621,79 @@ GEMINI_API_KEY=your_gemini_api_key_here
           </div>
 
           {/* Design Blueprint Matrix */}
-          <div className="grid grid-cols-2 gap-2 text-[10.5px] p-2.5 bg-studio-canvas rounded border border-studio-border/60 font-mono">
+          <div className="grid grid-cols-2 gap-3 text-[11.5px] p-3 bg-studio-panel rounded-md border border-studio-border font-mono">
             <div>
-              <span className="text-studio-ink-muted uppercase text-[9px] block">Style Category:</span>
-              <span className="text-studio-ink-primary font-semibold">{effectiveSpec.styleCategory}</span>
+              <span className="text-studio-ink-muted uppercase text-[11px] block">Style Category</span>
+              <span className="text-studio-ink-primary font-semibold mt-0.5 block">{effectiveSpec.styleCategory}</span>
             </div>
             <div>
-              <span className="text-studio-ink-muted uppercase text-[9px] block">SVG Pattern:</span>
-              <span className="text-studio-ink-primary font-semibold truncate block">
+              <span className="text-studio-ink-muted uppercase text-[11px] block">SVG Pattern</span>
+              <span className="text-studio-ink-primary font-semibold truncate block mt-0.5">
                 {effectiveSpec.decorations.patternType}
               </span>
             </div>
           </div>
 
           {/* Fine-Tuning Section (Color & Layout Overrides) */}
-          <div className="p-3 bg-studio-canvas rounded-lg border border-studio-border/70 space-y-3">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-studio-ink-secondary flex items-center gap-1">
+          <div className="p-3.5 bg-studio-panel rounded-lg border border-studio-border space-y-3">
+            <span className="text-[11.5px] font-mono uppercase tracking-wider text-studio-ink-secondary flex items-center gap-1.5">
               <Sliders className="w-3.5 h-3.5 text-studio-action" />
               <span>Customize Colors & Composition</span>
             </span>
 
             {/* Color Pickers */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               <div>
-                <label className="block text-[10px] font-mono text-studio-ink-muted mb-1">
+                <label className="block text-[11px] font-mono text-studio-ink-secondary mb-1">
                   Primary Brand Hex
                 </label>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <input
                     type="color"
                     value={editablePrimary}
                     onChange={(e) => setEditablePrimary(e.target.value)}
-                    className="w-6 h-6 rounded border border-studio-border cursor-pointer p-0"
+                    className="w-7 h-7 rounded border border-studio-border cursor-pointer p-0 shrink-0"
                   />
                   <input
                     type="text"
                     value={editablePrimary}
                     onChange={(e) => setEditablePrimary(e.target.value)}
-                    className="w-full px-2 py-1 bg-studio-panel border border-studio-border rounded text-[11px] font-mono text-studio-ink-primary"
+                    className="w-full px-2.5 py-1 bg-studio-canvas border border-studio-border rounded-md text-[12px] font-mono text-studio-ink-primary focus-ring"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono text-studio-ink-muted mb-1">
+                <label className="block text-[11px] font-mono text-studio-ink-secondary mb-1">
                   Secondary Accent Hex
                 </label>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <input
                     type="color"
                     value={editableSecondary}
                     onChange={(e) => setEditableSecondary(e.target.value)}
-                    className="w-6 h-6 rounded border border-studio-border cursor-pointer p-0"
+                    className="w-7 h-7 rounded border border-studio-border cursor-pointer p-0 shrink-0"
                   />
                   <input
                     type="text"
                     value={editableSecondary}
                     onChange={(e) => setEditableSecondary(e.target.value)}
-                    className="w-full px-2 py-1 bg-studio-panel border border-studio-border rounded text-[11px] font-mono text-studio-ink-primary"
+                    className="w-full px-2.5 py-1 bg-studio-canvas border border-studio-border rounded-md text-[12px] font-mono text-studio-ink-primary focus-ring"
                   />
                 </div>
               </div>
             </div>
 
             {/* Layout Dropdowns */}
-            <div className="grid grid-cols-2 gap-2 text-[10.5px]">
+            <div className="grid grid-cols-2 gap-2.5 text-[12px]">
               <div>
-                <label className="block text-[10px] font-mono text-studio-ink-muted mb-1">
+                <label className="block text-[11px] font-mono text-studio-ink-secondary mb-1">
                   Header Style
                 </label>
                 <select
                   value={editableHeaderStyle}
                   onChange={(e) => setEditableHeaderStyle(e.target.value as HeaderStyle)}
-                  className="w-full px-2 py-1 bg-studio-panel border border-studio-border rounded font-mono text-studio-ink-primary"
+                  className="w-full px-2.5 py-1.5 bg-studio-canvas border border-studio-border rounded-md font-sans text-studio-ink-primary focus-ring"
                 >
                   <option value="solid-banner">Solid Banner</option>
                   <option value="minimal-rail">Minimal Rail</option>
@@ -703,13 +704,13 @@ GEMINI_API_KEY=your_gemini_api_key_here
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono text-studio-ink-muted mb-1">
+                <label className="block text-[11px] font-mono text-studio-ink-secondary mb-1">
                   Photo Shape
                 </label>
                 <select
                   value={editablePhotoShape}
                   onChange={(e) => setEditablePhotoShape(e.target.value as PhotoShape)}
-                  className="w-full px-2 py-1 bg-studio-panel border border-studio-border rounded font-mono text-studio-ink-primary"
+                  className="w-full px-2.5 py-1.5 bg-studio-canvas border border-studio-border rounded-md font-sans text-studio-ink-primary focus-ring"
                 >
                   <option value="squircle">Squircle (Rounded-2XL)</option>
                   <option value="circle">Circle (Round)</option>
@@ -721,20 +722,20 @@ GEMINI_API_KEY=your_gemini_api_key_here
           </div>
 
           {/* Student Protection Notice */}
-          <div className="p-2.5 bg-studio-success-tint/60 border border-studio-success/20 rounded flex items-center gap-2 text-[10.5px] text-studio-success">
+          <div className="p-3 bg-studio-success-tint border border-studio-success/20 rounded-md flex items-center gap-2.5 text-[11.5px] text-studio-success">
             <ShieldCheck className="w-4 h-4 shrink-0" />
             <span>
-              <strong>100% PII Integrity:</strong> Real student details, cropped portrait photograph, and scannable QR code are inserted directly by the local rendering engine.
+              <strong>PII Integrity Guard:</strong> Student data, photo frame, and QR barcode are generated and embedded directly by the local client engine.
             </span>
           </div>
 
           {/* Action Footer: Regenerate, Apply, and Export */}
-          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 border-t border-studio-border/70">
+          <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 border-t border-studio-border">
             <button
               type="button"
               onClick={() => handleGenerateWithGemini()}
               disabled={isGenerating}
-              className="px-3 py-1.5 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded text-[12px] font-medium flex items-center justify-center gap-1.5 transition-colors"
+              className="px-3.5 py-1.5 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded-md text-[12.5px] font-medium flex items-center justify-center gap-1.5 transition-colors focus-ring"
             >
               <RotateCcw className="w-3.5 h-3.5 text-studio-ink-secondary" />
               <span>Regenerate Variation</span>
@@ -745,7 +746,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
                 <button
                   type="button"
                   onClick={onTriggerExport}
-                  className="px-3 py-1.5 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded text-[12px] font-medium flex items-center justify-center gap-1.5 transition-colors"
+                  className="px-3.5 py-1.5 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded-md text-[12.5px] font-medium flex items-center justify-center gap-1.5 transition-colors focus-ring"
                 >
                   <Download className="w-3.5 h-3.5 text-studio-ink-secondary" />
                   <span>Export</span>
@@ -755,13 +756,13 @@ GEMINI_API_KEY=your_gemini_api_key_here
               <button
                 type="button"
                 onClick={handleApplyToActiveCard}
-                className={`px-4 py-1.5 rounded text-[12px] font-medium flex items-center justify-center gap-1.5 transition-colors shadow-xs ${
+                className={`px-4 py-1.5 rounded-md text-[12.5px] font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs focus-ring ${
                   isApplied
                     ? 'bg-studio-success text-white'
                     : 'bg-studio-action hover:bg-studio-action-hover text-white'
                 }`}
               >
-                <Check className="w-3.5 h-3.5" />
+                <Check className="w-4 h-4" />
                 <span>{isApplied ? 'Design Applied' : 'Apply Design to Card'}</span>
               </button>
             </div>

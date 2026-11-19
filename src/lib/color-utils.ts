@@ -110,10 +110,10 @@ export function getRelativeLuminance(hex: string): number {
 /**
  * Automatically calculates optimal high-contrast text color (Dark Ink vs Crisp White)
  */
-export function getContrastTextColor(backgroundColorHex: string): '#181A1F' | '#FFFFFF' {
+export function getContrastTextColor(backgroundColorHex: string): '#111216' | '#FFFFFF' {
   const luminance = getRelativeLuminance(backgroundColorHex);
   // If background is light (luminance > 0.42), use dark ink; otherwise white
-  return luminance > 0.42 ? '#181A1F' : '#FFFFFF';
+  return luminance > 0.42 ? '#111216' : '#FFFFFF';
 }
 
 /**

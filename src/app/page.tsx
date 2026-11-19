@@ -364,23 +364,23 @@ export default function MultiInstitutionStudioPage() {
   const selectedTemplate = TEMPLATE_DEFINITIONS.find((t) => t.id === draft.design.templateId);
 
   return (
-    <div className="min-h-screen flex flex-col bg-studio-canvas text-studio-ink-primary font-sans antialiased">
+    <div className="min-h-screen flex flex-col bg-studio-canvas text-studio-ink-primary font-sans antialiased selection:bg-blue-600 selection:text-white">
       {/* Top Application Header */}
-      <header className="bg-studio-panel border-b border-studio-border sticky top-0 z-30 shadow-xs">
+      <header className="bg-studio-panel/95 backdrop-blur-md border-b border-studio-border sticky top-0 z-30 shadow-xs">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           {/* Logo & College Selector */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-md bg-studio-action text-white flex items-center justify-center shadow-xs shrink-0">
-              <CreditCard className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-lg bg-studio-action text-white flex items-center justify-center shadow-xs shrink-0">
+              <CreditCard className="w-5 h-5 text-white" />
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <span className="font-serif font-bold text-[16px] tracking-tight text-studio-ink-primary truncate">
+                <span className="font-serif font-bold text-[18px] tracking-tight text-studio-ink-primary truncate">
                   Student ID Studio
                 </span>
-                <span className="hidden sm:inline-block px-2 py-0.5 bg-studio-subtle border border-studio-border text-[9.5px] font-mono font-medium rounded uppercase text-studio-ink-secondary shrink-0">
-                  AI & SQLite Engine
+                <span className="hidden sm:inline-block px-2 py-0.5 bg-studio-subtle border border-studio-border text-[12px] font-mono font-medium rounded text-studio-ink-secondary shrink-0 leading-normal">
+                  Credential Lab
                 </span>
               </div>
 
@@ -389,19 +389,19 @@ export default function MultiInstitutionStudioPage() {
                 <button
                   type="button"
                   onClick={() => setIsCollegeModalOpen(true)}
-                  className="px-2 py-0.5 bg-studio-canvas hover:bg-studio-subtle border border-studio-border rounded text-[11px] font-medium text-studio-ink-primary flex items-center gap-1.5 transition-colors truncate max-w-[260px] sm:max-w-xs"
+                  className="px-2.5 py-0.5 bg-studio-panel hover:bg-studio-subtle border border-studio-border rounded-md text-[12px] font-medium text-studio-ink-primary flex items-center gap-1.5 transition-colors truncate max-w-[280px] sm:max-w-xs focus-ring"
                   title="Switch or manage college database"
                 >
-                  <Landmark className="w-3 h-3 text-studio-action shrink-0" />
+                  <Landmark className="w-3.5 h-3.5 text-studio-action shrink-0" />
                   <span className="truncate">
-                    {activeCollege ? activeCollege.name : 'No College Selected'}
+                    {activeCollege ? activeCollege.name : 'Select Institution Database'}
                   </span>
                   {activeCollege && (
-                    <span className="text-[9.5px] font-mono text-studio-ink-muted">
+                    <span className="text-[12px] font-mono text-studio-ink-secondary tabular-nums leading-normal">
                       ({activeCollege.studentCount ?? 0})
                     </span>
                   )}
-                  <ChevronDown className="w-3 h-3 text-studio-ink-muted shrink-0" />
+                  <ChevronDown className="w-3.5 h-3.5 text-studio-ink-muted shrink-0" />
                 </button>
               </div>
             </div>
@@ -412,28 +412,28 @@ export default function MultiInstitutionStudioPage() {
             <button
               type="button"
               onClick={() => setCurrentView('studio')}
-              className={`px-3 py-1.5 rounded-md text-[12px] font-medium flex items-center gap-1.5 transition-all ${
+              className={`px-3.5 py-1.5 rounded-md text-[13px] font-medium flex items-center gap-2 transition-all ${
                 currentView === 'studio'
                   ? 'bg-studio-panel text-studio-ink-primary shadow-xs font-semibold'
                   : 'text-studio-ink-secondary hover:text-studio-ink-primary'
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5 text-studio-action" />
+              <LayoutGrid className="w-4 h-4 text-studio-action" />
               <span>Card Studio</span>
             </button>
             <button
               type="button"
               onClick={() => setCurrentView('vault')}
-              className={`px-3 py-1.5 rounded-md text-[12px] font-medium flex items-center gap-1.5 transition-all ${
+              className={`px-3.5 py-1.5 rounded-md text-[13px] font-medium flex items-center gap-2 transition-all ${
                 currentView === 'vault'
                   ? 'bg-studio-panel text-studio-ink-primary shadow-xs font-semibold'
                   : 'text-studio-ink-secondary hover:text-studio-ink-primary'
               }`}
             >
-              <Search className="w-3.5 h-3.5 text-studio-action" />
+              <Search className="w-4 h-4 text-studio-action" />
               <span>Student ID Vault</span>
               {activeCollege && (
-                <span className="px-1.5 py-0.2 bg-studio-canvas border rounded text-[9.5px] font-mono text-studio-ink-secondary">
+                <span className="px-2 py-0.5 bg-studio-panel border border-studio-border rounded text-[12px] font-mono font-medium text-studio-ink-secondary tabular-nums leading-normal">
                   {activeCollege.studentCount ?? 0}
                 </span>
               )}
@@ -444,27 +444,33 @@ export default function MultiInstitutionStudioPage() {
           <div className="flex items-center gap-2">
             {/* Auto-save status indicator */}
             {saveStatusText && (
-              <span className="hidden md:flex items-center gap-1 font-mono text-[11px] text-studio-success bg-studio-success-tint px-2 py-1 rounded border border-studio-success/20">
-                <CheckCircle2 className="w-3 h-3" />
+              <span className="hidden md:flex items-center gap-1.5 font-mono text-[12px] text-studio-success bg-studio-success-tint px-2.5 py-1 rounded-md border border-studio-success/20">
+                <CheckCircle2 className="w-3.5 h-3.5" />
                 {saveStatusText}
               </span>
             )}
 
             {/* Mobile View Switcher */}
-            <div className="flex lg:hidden items-center border border-studio-border rounded overflow-hidden">
+            <div className="flex lg:hidden items-center border border-studio-border rounded-md overflow-hidden p-0.5 bg-studio-subtle">
               <button
                 type="button"
                 onClick={() => setCurrentView('studio')}
-                className={`p-1.5 text-[11px] ${currentView === 'studio' ? 'bg-studio-action text-white' : 'bg-studio-panel text-studio-ink-primary'}`}
-                title="Card Studio"
+                className={`px-2.5 py-1 text-[12px] font-medium rounded ${
+                  currentView === 'studio'
+                    ? 'bg-studio-action text-white font-semibold'
+                    : 'text-studio-ink-secondary'
+                }`}
               >
                 Studio
               </button>
               <button
                 type="button"
                 onClick={() => setCurrentView('vault')}
-                className={`p-1.5 text-[11px] ${currentView === 'vault' ? 'bg-studio-action text-white' : 'bg-studio-panel text-studio-ink-primary'}`}
-                title="Student Vault"
+                className={`px-2.5 py-1 text-[12px] font-medium rounded ${
+                  currentView === 'vault'
+                    ? 'bg-studio-action text-white font-semibold'
+                    : 'text-studio-ink-secondary'
+                }`}
               >
                 Vault
               </button>
@@ -474,10 +480,10 @@ export default function MultiInstitutionStudioPage() {
             <button
               type="button"
               onClick={handleLoadSamplePreview}
-              className="px-2.5 py-1.5 bg-studio-subtle hover:bg-studio-border/70 border border-studio-border text-studio-ink-primary rounded-md text-[12px] font-medium flex items-center gap-1.5 transition-colors"
-              title="Preload sample credentials to test all 6 templates immediately"
+              className="px-3 py-1.5 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded-md text-[12.5px] font-medium flex items-center gap-1.5 transition-colors shadow-xs focus-ring"
+              title="Preload sample credentials to test all templates immediately"
             >
-              <Sparkles className="w-3.5 h-3.5 text-studio-action" />
+              <Sparkles className="w-4 h-4 text-amber-600" />
               <span className="hidden sm:inline">Sample Preview</span>
             </button>
 
@@ -485,10 +491,10 @@ export default function MultiInstitutionStudioPage() {
             <button
               type="button"
               onClick={handleResetToBlank}
-              className="p-1.5 sm:px-2.5 sm:py-1.5 text-studio-ink-secondary hover:text-studio-ink-primary hover:bg-studio-subtle border border-studio-border rounded-md text-[12px] flex items-center gap-1 transition-colors"
+              className="p-1.5 sm:px-3 sm:py-1.5 text-studio-ink-secondary hover:text-studio-ink-primary hover:bg-studio-subtle border border-studio-border rounded-md text-[12.5px] font-medium flex items-center gap-1.5 transition-colors focus-ring"
               title="Clear all fields and reset to blank"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-4 h-4" />
               <span className="hidden sm:inline">Reset</span>
             </button>
 
@@ -497,24 +503,24 @@ export default function MultiInstitutionStudioPage() {
               type="button"
               onClick={handleSaveToCollegeDb}
               disabled={isSavingToDb}
-              className="px-3 py-1.5 bg-studio-panel hover:bg-studio-subtle border border-studio-action text-studio-action rounded-md text-[12px] font-medium flex items-center gap-1.5 transition-colors shadow-xs disabled:opacity-50"
+              className="px-3 py-1.5 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-action rounded-md text-[12.5px] font-medium flex items-center gap-1.5 transition-colors shadow-xs disabled:opacity-50 focus-ring"
               title={activeCollege ? `Save permanently to ${activeCollege.slug}.db` : 'Select college to save'}
             >
-              <Database className="w-3.5 h-3.5 text-studio-action" />
+              <Database className="w-4 h-4 text-studio-action" />
               <span className="hidden sm:inline">
                 {isSavingToDb ? 'Saving...' : 'Save to College DB'}
               </span>
-              <span className="sm:hidden">Save DB</span>
+              <span className="sm:hidden">Save</span>
             </button>
 
             {/* Primary Export Button */}
             <button
               type="button"
               onClick={() => setIsExportModalOpen(true)}
-              className="px-4 py-1.5 bg-studio-action hover:bg-studio-action-hover text-white rounded-md text-[12.5px] font-medium flex items-center gap-2 shadow-xs transition-colors ml-1"
+              className="px-4 py-1.5 bg-studio-action hover:bg-studio-action-hover text-white rounded-md text-[13px] font-semibold flex items-center gap-2 shadow-sm transition-all focus-ring active:scale-[0.98] ml-1"
             >
               <Download className="w-4 h-4" />
-              <span className="font-semibold">Export Card</span>
+              <span>Export Card</span>
             </button>
           </div>
         </div>
@@ -540,97 +546,97 @@ export default function MultiInstitutionStudioPage() {
         /* Card Studio View Split Layout */
         <main className="flex-1 max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[calc(100vh-4rem)]">
           {/* Left Side: Configuration & Form Controls (Cols 5) */}
-          <section className="lg:col-span-5 border-r border-studio-border bg-studio-canvas flex flex-col justify-between overflow-y-auto">
+          <section className="lg:col-span-5 border-r border-studio-border bg-studio-panel flex flex-col justify-between overflow-y-auto">
             <div>
               {/* Editor Tab Navigation Bar */}
-              <div className="bg-studio-panel border-b border-studio-border px-2 pt-2 grid grid-cols-6 gap-0.5">
+              <div className="bg-studio-panel border-b border-studio-border px-3 pt-2 grid grid-cols-6 gap-1">
                 <button
                   type="button"
                   onClick={() => setActiveTab('template')}
-                  className={`py-2 px-1 text-center border-b-2 font-medium text-[11px] flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2.5 px-1 text-center border-b-2 font-medium text-[12px] flex items-center justify-center gap-1.5 transition-all ${
                     activeTab === 'template'
                       ? 'border-studio-action text-studio-action font-semibold'
                       : 'border-transparent text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                   title="Card Templates"
                 >
-                  <Layers className="w-3.5 h-3.5 shrink-0" />
+                  <Layers className="w-4 h-4 shrink-0" />
                   <span className="truncate">Templates</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setActiveTab('ai-studio')}
-                  className={`py-2 px-1 text-center border-b-2 font-medium text-[11px] flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2.5 px-1 text-center border-b-2 font-medium text-[12px] flex items-center justify-center gap-1.5 transition-all ${
                     activeTab === 'ai-studio'
                       ? 'border-studio-action text-studio-action font-semibold'
                       : 'border-transparent text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                   title="AI Design Studio"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                  <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
                   <span className="truncate font-semibold">AI Studio</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setActiveTab('colors')}
-                  className={`py-2 px-1 text-center border-b-2 font-medium text-[11px] flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2.5 px-1 text-center border-b-2 font-medium text-[12px] flex items-center justify-center gap-1.5 transition-all ${
                     activeTab === 'colors'
                       ? 'border-studio-action text-studio-action font-semibold'
                       : 'border-transparent text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                   title="Color Customizer"
                 >
-                  <Palette className="w-3.5 h-3.5 shrink-0" />
+                  <Palette className="w-4 h-4 shrink-0" />
                   <span className="truncate">Colors</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setActiveTab('student')}
-                  className={`py-2 px-1 text-center border-b-2 font-medium text-[11px] flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2.5 px-1 text-center border-b-2 font-medium text-[12px] flex items-center justify-center gap-1.5 transition-all ${
                     activeTab === 'student'
                       ? 'border-studio-action text-studio-action font-semibold'
                       : 'border-transparent text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                   title="Student Details"
                 >
-                  <User className="w-3.5 h-3.5 shrink-0" />
+                  <User className="w-4 h-4 shrink-0" />
                   <span className="truncate">Student</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setActiveTab('photo')}
-                  className={`py-2 px-1 text-center border-b-2 font-medium text-[11px] flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2.5 px-1 text-center border-b-2 font-medium text-[12px] flex items-center justify-center gap-1.5 transition-all ${
                     activeTab === 'photo'
                       ? 'border-studio-action text-studio-action font-semibold'
                       : 'border-transparent text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                   title="Portrait Photo"
                 >
-                  <Camera className="w-3.5 h-3.5 shrink-0" />
+                  <Camera className="w-4 h-4 shrink-0" />
                   <span className="truncate">Photo</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setActiveTab('institution')}
-                  className={`py-2 px-1 text-center border-b-2 font-medium text-[11px] flex items-center justify-center gap-1 transition-all ${
+                  className={`py-2.5 px-1 text-center border-b-2 font-medium text-[12px] flex items-center justify-center gap-1.5 transition-all ${
                     activeTab === 'institution'
                       ? 'border-studio-action text-studio-action font-semibold'
                       : 'border-transparent text-studio-ink-secondary hover:text-studio-ink-primary'
                   }`}
                   title="College Details"
                 >
-                  <Landmark className="w-3.5 h-3.5 shrink-0" />
+                  <Landmark className="w-4 h-4 shrink-0" />
                   <span className="truncate">College</span>
                 </button>
               </div>
 
               {/* Active Tab Panel Body */}
-              <div className="p-4 sm:p-5">
+              <div className="p-5 sm:p-6">
                 {activeTab === 'template' && (
                   <TemplateSelector design={draft.design} onChange={updateDesign} />
                 )}
@@ -675,17 +681,17 @@ export default function MultiInstitutionStudioPage() {
             </div>
 
             {/* Form Footer Spec Callout */}
-            <div className="p-4 border-t border-studio-border bg-studio-panel/60 text-[11px] font-mono text-studio-ink-secondary flex items-center justify-between">
+            <div className="p-4 border-t border-studio-border bg-studio-canvas text-[12px] font-mono text-studio-ink-secondary flex items-center justify-between">
               <span className="truncate">
-                Style: <strong className="text-studio-ink-primary">{draft.design.aiBackground?.theme || selectedTemplate?.title}</strong>
+                Style: <strong className="text-studio-ink-primary font-semibold">{draft.design.aiBackground?.theme || selectedTemplate?.title}</strong>
               </span>
-              <div className="flex items-center gap-1.5 shrink-0 ml-2">
+              <div className="flex items-center gap-2 shrink-0 ml-2">
                 {draft.design.aiBackground && (
-                  <span className="px-1.5 py-0.2 bg-amber-100 text-amber-900 border border-amber-300 rounded text-[9px] font-semibold">
+                  <span className="px-2 py-0.5 bg-amber-50 text-amber-900 border border-amber-300 rounded text-[12px] font-semibold leading-normal">
                     AI Artwork
                   </span>
                 )}
-                <span className="capitalize font-semibold text-studio-action">
+                <span className="capitalize font-semibold text-studio-action text-[12px] tabular-nums leading-normal">
                   {draft.design.orientation} CR80
                 </span>
               </div>

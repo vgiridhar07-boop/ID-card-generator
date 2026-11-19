@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { CardOrientation, ExportFormat } from '@/types/id-card';
+import { CardOrientation } from '@/types/id-card';
 import { exportCardSideAsPng, exportCr80Pdf, exportA4SheetPdf } from '@/lib/export-card';
-import { X, Download, FileText, Image as ImageIcon, Printer, CheckCircle, Loader2 } from 'lucide-react';
+import { X, Download, FileText, Image as ImageIcon, Printer, Loader2 } from 'lucide-react';
 
 interface ExportModalProps {
   isOpen: boolean;
@@ -126,15 +126,15 @@ export function ExportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs select-none">
-      <div className="w-full max-w-lg bg-studio-panel border border-studio-border rounded-lg shadow-float overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm select-none">
+      <div className="w-full max-w-lg bg-studio-panel border border-studio-border rounded-xl shadow-modal overflow-hidden">
         {/* Modal Header */}
-        <div className="px-5 py-4 border-b border-studio-border flex items-center justify-between bg-studio-canvas">
+        <div className="px-6 py-4 border-b border-studio-border flex items-center justify-between bg-studio-canvas">
           <div>
-            <h2 className="font-sans font-bold text-[15px] text-studio-ink-primary">
+            <h2 className="font-serif font-bold text-[16px] text-studio-ink-primary">
               Export Production ID Card
             </h2>
-            <p className="text-[11px] text-studio-ink-secondary mt-0.5">
+            <p className="text-[12px] text-studio-ink-secondary mt-0.5">
               Select export format for direct PVC printing or standard sheet die-cutting.
             </p>
           </div>
@@ -142,104 +142,105 @@ export function ExportModal({
             type="button"
             onClick={onClose}
             disabled={isProcessing}
-            className="p-1 rounded text-studio-ink-muted hover:text-studio-ink-primary hover:bg-studio-subtle transition-colors"
+            className="p-1.5 rounded-md text-studio-ink-secondary hover:text-studio-ink-primary hover:bg-studio-subtle transition-colors focus-ring"
+            aria-label="Close dialog"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="p-5 space-y-4">
+        <div className="p-6 space-y-4">
           {/* Status Message / Spinner */}
           {isProcessing && (
-            <div className="p-3 bg-studio-canvas border border-studio-action/30 rounded-md flex items-center gap-3 text-studio-action">
+            <div className="p-3.5 bg-studio-canvas border border-studio-action/30 rounded-lg flex items-center gap-3 text-studio-action shadow-xs">
               <Loader2 className="w-5 h-5 animate-spin shrink-0" />
-              <span className="font-mono text-[12px] font-medium">{statusMessage}</span>
+              <span className="font-mono text-[12.5px] font-medium">{statusMessage}</span>
             </div>
           )}
 
           {/* Option 1: CR80 Single Card PDF */}
-          <div className="p-3.5 border border-studio-border hover:border-studio-action/40 rounded-lg bg-white transition-all">
+          <div className="p-4 border border-studio-border hover:border-studio-action/40 rounded-xl bg-white shadow-xs transition-all">
             <div className="flex items-start justify-between">
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded bg-studio-subtle flex items-center justify-center text-studio-action shrink-0 mt-0.5">
+              <div className="flex items-start gap-3.5">
+                <div className="w-10 h-10 rounded-lg bg-studio-subtle flex items-center justify-center text-studio-action shrink-0 shadow-xs">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-[13px] text-studio-ink-primary">
+                    <span className="font-semibold text-[13.5px] text-studio-ink-primary">
                       CR80 Direct PVC Card PDF
                     </span>
-                    <span className="px-1.5 py-0.2 bg-studio-action text-white rounded text-[9.5px] font-mono">
+                    <span className="px-2 py-0.5 bg-studio-action text-white rounded-full text-[11px] font-mono font-medium">
                       Recommended
                     </span>
                   </div>
-                  <p className="text-[11px] text-studio-ink-secondary mt-0.5 leading-snug">
+                  <p className="text-[12px] text-studio-ink-secondary mt-1 leading-relaxed">
                     2-Page document (Page 1: Front, Page 2: Back) sized strictly to 53.98 × 85.60 mm. Zero margins, formatted for direct card printers (Zebra, Fargo, Evolis).
                   </p>
                 </div>
               </div>
             </div>
-            <div className="mt-3 flex justify-end">
+            <div className="mt-3.5 flex justify-end">
               <button
                 type="button"
                 onClick={handleExportCr80}
                 disabled={isProcessing}
-                className="px-3.5 py-1.5 bg-studio-action hover:bg-studio-action-hover text-white rounded text-[12px] font-medium flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                className="px-4 py-2 bg-studio-action hover:bg-studio-action-hover text-white rounded-md text-[12.5px] font-semibold flex items-center gap-2 transition-all disabled:opacity-50 shadow-xs focus-ring active:scale-[0.98]"
               >
                 <Download className="w-3.5 h-3.5" />
-                Export CR80 PDF
+                <span>Export CR80 PDF</span>
               </button>
             </div>
           </div>
 
           {/* Option 2: A4 Print Sheet PDF */}
-          <div className="p-3.5 border border-studio-border hover:border-studio-action/40 rounded-lg bg-white transition-all">
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded bg-studio-subtle flex items-center justify-center text-studio-ink-primary shrink-0 mt-0.5">
+          <div className="p-4 border border-studio-border hover:border-studio-action/40 rounded-xl bg-white shadow-xs transition-all">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-lg bg-studio-subtle flex items-center justify-center text-studio-ink-primary shrink-0 shadow-xs">
                 <Printer className="w-5 h-5" />
               </div>
               <div className="flex-1">
-                <span className="font-semibold text-[13px] text-studio-ink-primary block">
+                <span className="font-semibold text-[13.5px] text-studio-ink-primary block">
                   A4 Print Sheet PDF with Cut Guides
                 </span>
-                <p className="text-[11px] text-studio-ink-secondary mt-0.5 leading-snug">
+                <p className="text-[12px] text-studio-ink-secondary mt-1 leading-relaxed">
                   Front and Back laid out side-by-side on standard 210 × 297 mm paper with precision corner register crop marks, folding centerline, and institution specifications.
                 </p>
               </div>
             </div>
-            <div className="mt-3 flex justify-end">
+            <div className="mt-3.5 flex justify-end">
               <button
                 type="button"
                 onClick={handleExportA4Sheet}
                 disabled={isProcessing}
-                className="px-3.5 py-1.5 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded text-[12px] font-medium flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                className="px-4 py-2 bg-studio-panel hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded-md text-[12.5px] font-semibold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-xs focus-ring"
               >
                 <Printer className="w-3.5 h-3.5 text-studio-ink-secondary" />
-                Export A4 Sheet PDF
+                <span>Export A4 Sheet PDF</span>
               </button>
             </div>
           </div>
 
           {/* Option 3: PNG High-Res */}
-          <div className="p-3.5 border border-studio-border rounded-lg bg-white">
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded bg-studio-subtle flex items-center justify-center text-studio-ink-primary shrink-0 mt-0.5">
+          <div className="p-4 border border-studio-border rounded-xl bg-white shadow-xs">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-lg bg-studio-subtle flex items-center justify-center text-studio-ink-primary shrink-0 shadow-xs">
                 <ImageIcon className="w-5 h-5" />
               </div>
               <div className="flex-1">
-                <span className="font-semibold text-[13px] text-studio-ink-primary block">
+                <span className="font-semibold text-[13.5px] text-studio-ink-primary block">
                   High-Resolution PNG (300 DPI Equivalent)
                 </span>
-                <p className="text-[11px] text-studio-ink-secondary mt-0.5 leading-snug">
+                <p className="text-[12px] text-studio-ink-secondary mt-1 leading-relaxed">
                   Sharp raster images (972 × 1542 px at 3x scale) ideal for student portals, archival records, or digital wallets.
                 </p>
-                <div className="flex items-center gap-2 mt-3">
+                <div className="flex items-center gap-2 mt-3.5">
                   <button
                     type="button"
                     onClick={() => handleExportPng('front')}
                     disabled={isProcessing}
-                    className="px-2.5 py-1 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded text-[11px] font-medium transition-colors"
+                    className="px-3 py-1.5 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded-md text-[12px] font-medium transition-colors focus-ring"
                   >
                     Front PNG
                   </button>
@@ -247,7 +248,7 @@ export function ExportModal({
                     type="button"
                     onClick={() => handleExportPng('back')}
                     disabled={isProcessing}
-                    className="px-2.5 py-1 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded text-[11px] font-medium transition-colors"
+                    className="px-3 py-1.5 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded-md text-[12px] font-medium transition-colors focus-ring"
                   >
                     Back PNG
                   </button>
@@ -255,7 +256,7 @@ export function ExportModal({
                     type="button"
                     onClick={() => handleExportPng('both')}
                     disabled={isProcessing}
-                    className="px-2.5 py-1 bg-studio-canvas hover:bg-studio-subtle border border-studio-border text-studio-ink-primary rounded text-[11px] font-medium transition-colors"
+                    className="px-3.5 py-1.5 bg-studio-action hover:bg-studio-action-hover text-white rounded-md text-[12px] font-medium transition-colors shadow-xs focus-ring"
                   >
                     Both Sides
                   </button>
@@ -266,12 +267,12 @@ export function ExportModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-5 py-3 border-t border-studio-border bg-studio-canvas flex items-center justify-between text-[11px] font-mono text-studio-ink-muted">
+        <div className="px-6 py-3.5 border-t border-studio-border bg-studio-canvas flex items-center justify-between text-[11.5px] font-mono text-studio-ink-secondary">
           <span>Card Standard: ISO/IEC 7810 ID-1</span>
           <button
             type="button"
             onClick={onClose}
-            className="text-studio-ink-secondary hover:text-studio-ink-primary"
+            className="text-studio-ink-secondary hover:text-studio-ink-primary font-medium focus-ring rounded"
           >
             Close
           </button>

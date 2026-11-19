@@ -1,0 +1,18 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "undersized-ui-text"
+    ],
+    "ignoreFiles": [
+      "src/components/card/**"
+    ],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "instrument sans",
+        "createdAt": "2026-11-19T18:36:29.532Z",
+        "reason": "Verified editorial grotesque brand font"
+      }
+    ]
+  }
+}

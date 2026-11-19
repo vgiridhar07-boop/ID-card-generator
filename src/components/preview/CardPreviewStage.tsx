@@ -38,11 +38,11 @@ export const CardPreviewStage = forwardRef<CardPreviewStageRef, CardPreviewStage
         {/* Top Stage Control Strip */}
         <div className="bg-studio-panel border-b border-studio-border px-4 py-2.5 flex items-center justify-between z-20 shrink-0">
           {/* Side Toggle Tabs */}
-          <div className="flex items-center gap-1.5 p-1 bg-studio-subtle border border-studio-border rounded-md">
+          <div className="flex items-center gap-1 p-1 bg-studio-subtle border border-studio-border rounded-lg">
             <button
               type="button"
               onClick={() => setCurrentSide('front')}
-              className={`px-3 py-1 rounded text-[11.5px] font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md text-[12px] font-medium transition-all focus-ring ${
                 currentSide === 'front'
                   ? 'bg-studio-panel text-studio-ink-primary shadow-xs font-semibold'
                   : 'text-studio-ink-secondary hover:text-studio-ink-primary'
@@ -53,7 +53,7 @@ export const CardPreviewStage = forwardRef<CardPreviewStageRef, CardPreviewStage
             <button
               type="button"
               onClick={() => setCurrentSide('back')}
-              className={`px-3 py-1 rounded text-[11.5px] font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md text-[12px] font-medium transition-all focus-ring ${
                 currentSide === 'back'
                   ? 'bg-studio-panel text-studio-ink-primary shadow-xs font-semibold'
                   : 'text-studio-ink-secondary hover:text-studio-ink-primary'
@@ -67,55 +67,58 @@ export const CardPreviewStage = forwardRef<CardPreviewStageRef, CardPreviewStage
           <button
             type="button"
             onClick={toggleSide}
-            className="px-2.5 py-1 text-[11px] font-mono text-studio-action hover:bg-studio-subtle border border-studio-border rounded flex items-center gap-1.5 transition-colors"
+            className="px-3 py-1.5 text-[12px] font-mono text-studio-action hover:bg-studio-subtle border border-studio-border rounded-md flex items-center gap-1.5 transition-colors focus-ring"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            Flip Card
+            <span>Flip Card</span>
           </button>
 
           {/* Zoom Controls & Dimension Specs */}
-          <div className="hidden sm:flex items-center gap-2">
-            <div className="flex items-center gap-1 bg-studio-subtle border border-studio-border rounded px-1.5 py-0.5">
+          <div className="hidden sm:flex items-center gap-2.5">
+            <div className="flex items-center gap-1 bg-studio-subtle border border-studio-border rounded-md px-1.5 py-0.5">
               <button
                 type="button"
                 onClick={() => setZoomLevel((z) => Math.max(0.7, z - 0.1))}
-                className="p-1 hover:bg-studio-panel rounded text-studio-ink-secondary transition-colors"
+                className="p-1 hover:bg-studio-panel rounded text-studio-ink-secondary transition-colors focus-ring"
                 title="Zoom Out"
+                aria-label="Zoom Out"
               >
                 <ZoomOut className="w-3.5 h-3.5" />
               </button>
-              <span className="font-mono text-[10px] text-studio-ink-primary px-1 font-semibold min-w-[38px] text-center">
+              <span className="font-mono text-[12px] text-studio-ink-primary px-1 font-semibold min-w-[42px] text-center tabular-nums">
                 {Math.round(zoomLevel * 100)}%
               </span>
               <button
                 type="button"
                 onClick={() => setZoomLevel((z) => Math.min(1.4, z + 0.1))}
-                className="p-1 hover:bg-studio-panel rounded text-studio-ink-secondary transition-colors"
+                className="p-1 hover:bg-studio-panel rounded text-studio-ink-secondary transition-colors focus-ring"
                 title="Zoom In"
+                aria-label="Zoom In"
               >
                 <ZoomIn className="w-3.5 h-3.5" />
               </button>
               <button
                 type="button"
                 onClick={() => setZoomLevel(1.0)}
-                className="p-1 hover:bg-studio-panel rounded text-studio-ink-secondary transition-colors ml-0.5"
+                className="p-1 hover:bg-studio-panel rounded text-studio-ink-secondary transition-colors ml-0.5 focus-ring"
                 title="Actual Size (100%)"
+                aria-label="Actual Size"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
               </button>
             </div>
 
-            <div className="font-mono text-[10px] text-studio-ink-muted bg-studio-panel border border-studio-border px-2 py-1 rounded">
+            <div className="font-mono text-[12px] leading-normal text-studio-ink-secondary bg-studio-panel border border-studio-border px-2.5 py-1 rounded-md tabular-nums">
               {isPortrait ? '53.98 × 85.60 mm' : '85.60 × 53.98 mm'} (CR80)
             </div>
           </div>
         </div>
 
         {/* Drafting Mat Viewport */}
-        <div className="flex-1 bg-drafting-grid flex items-center justify-center p-6 relative overflow-auto min-h-[560px]">
+        <div className="flex-1 bg-drafting-grid flex items-center justify-center p-6 sm:p-8 relative overflow-auto min-h-[580px]">
           {/* Card Presentation Container with scale transform */}
           <div
-            className="transition-transform duration-150 ease-out origin-center flex items-center justify-center"
+            className="transition-transform duration-200 ease-out origin-center flex items-center justify-center"
             style={{ transform: `scale(${zoomLevel})` }}
           >
             <CardRenderer
@@ -128,9 +131,9 @@ export const CardPreviewStage = forwardRef<CardPreviewStageRef, CardPreviewStage
           </div>
 
           {/* Bottom Floating Card Spec Pill */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm border border-studio-border px-3 py-1 rounded-full shadow-xs flex items-center gap-2 pointer-events-none">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md border border-studio-border px-4 py-1.5 rounded-full shadow-sm flex items-center gap-2 pointer-events-none">
             <span className="w-2 h-2 rounded-full bg-studio-success" />
-            <span className="text-[10px] font-mono uppercase tracking-wider text-studio-ink-secondary">
+            <span className="text-[12px] font-mono tracking-wider text-studio-ink-secondary tabular-nums leading-normal">
               Viewing {currentSide.toUpperCase()} • ISO/IEC 7810 ID-1 Standard
             </span>
           </div>

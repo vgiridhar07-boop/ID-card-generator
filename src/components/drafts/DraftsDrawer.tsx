@@ -109,24 +109,24 @@ export function DraftsDrawer({
                           {draft.student.fullName || 'Untitled Student'}
                         </span>
                         {isActive && (
-                          <span className="px-1.5 py-0.2 bg-studio-action text-white rounded text-[9px] font-mono">
+                          <span className="px-1.5 py-0.5 bg-studio-action text-white rounded text-[11px] font-mono leading-none">
                             Active
                           </span>
                         )}
                       </div>
-                      <span className="text-[10.5px] font-mono text-studio-ink-secondary block mt-0.5">
+                      <span className="text-[12px] font-mono text-studio-ink-secondary block mt-0.5">
                         {draft.student.studentId || 'ID Pending'} • {draft.institution.name || 'General'}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mt-2 pt-2 border-t border-studio-border/50 text-[10px] font-mono text-studio-ink-muted">
+                  <div className="flex items-center gap-2 mt-2 pt-2 border-t border-studio-border/50 text-[11px] font-mono text-studio-ink-secondary leading-normal">
                     <span className="capitalize">{tmpl?.title || draft.design.templateId}</span>
                     <span>•</span>
                     <span className="capitalize">{draft.design.orientation}</span>
                     <span>•</span>
                     <span className="flex items-center gap-0.5">
-                      <Clock className="w-2.5 h-2.5" />
+                      <Clock className="w-3 h-3" />
                       {formatDate(draft.updatedAt)}
                     </span>
                   </div>
