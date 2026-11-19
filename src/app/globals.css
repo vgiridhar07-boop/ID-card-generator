@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --studio-canvas: #F6F5F1;
+  --studio-panel: #FFFFFF;
+  --studio-subtle: #EFECE5;
+  --studio-border: #E3DFD6;
+  --studio-ink-primary: #181A1F;
+  --studio-ink-secondary: #5A5E69;
+  --studio-ink-muted: #8C909C;
+  --studio-action: #1B365D;
+  --studio-action-hover: #142947;
+  --studio-destructive: #B42318;
+  --studio-destructive-tint: #FEF3F2;
+  --studio-success: #157347;
+  --studio-success-tint: #ECFDF3;
+  --studio-mat: #E9E6DE;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  background-color: var(--studio-canvas);
+  color: var(--studio-ink-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle architectural drafting grid for the preview stage */
+.bg-drafting-grid {
+  background-color: #E9E6DE;
+  background-image: radial-gradient(#CFCAC0 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+
+/* Custom hairline borders and scrollbars matching precision studio feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F6F5F1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D5D0C6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8B2A6;
+}
+
+.select-none {
+  user-select: none;
+}
